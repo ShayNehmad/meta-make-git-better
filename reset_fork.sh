@@ -4,6 +4,11 @@ read -p "This will delete all your local branches and you will basically lose al
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
+    if [[ git remote | grep upstream | wc -l -eq 0 ]] 
+    then
+        echo "You have to define the original repo as a remote named upstream using the following command: `git remote add upstream git@github.com:ShayNehmad/make-git-better.git`"
+        exit 1
+    fi
     echo "Fetching upstream..."
     git fetch upstream
     echo "Deleting all local branches..."
