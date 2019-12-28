@@ -91,6 +91,24 @@ Tests are the same as last time 🚩
 * Happy flow ✅
 * Edge cases ⏹ Pushing not a merge, lots of commits in the way.
 
+TODO: Use MD5 collisions to make hashing both of the strings (ENV + CLI) make actual sense (also, it will be super cool).
+
+Code example (based on [this research](https://marc-stevens.nl/research/md5-1block-collision/)) so I'll be able to dev this quickly:
+
+```python
+import hashlib
+import base64
+s1 = b'M\xc9h\xff\x0e\xe3\\ \x95r\xd4w{r\x15\x87\xd3o\xa7\xb2\x1b\xdcV\xb7J=\xc0x>{\x95\x18\xaf\xbf\xa2\x00\xa8(K\xf3n\x8eKU\xb3_Bu\x93\xd8Igm\xa0\xd1U]\x83`\xfb_\x07\xfe\xa2'
+m1 = hashlib.md5()
+m1.update(s1)
+m2 = hashlib.md5()
+m2.update(s2)
+m1.hexdigest()  # '008ee33a9d58b51cfeb425b0959121c9'
+m2.hexdigest()  # '008ee33a9d58b51cfeb425b0959121c9'
+base64.b64encode(s1)  # b'Tclo/w7jXCCVctR3e3IVh9Nvp7Ib3Fa3Sj3AeD57lRivv6IAqChL826OS1WzX0J1k9hJZ22g0VVdg2D7Xwf+og=='
+base64.b64encode(s2)  # b'Tclo/w7jXCCVctR3e3IVh9Nvp7Ib3Fa3Sj3AeD57lRivv6ICqChL826OS1WzX0J1k9hJZ22g0dVdg2D7Xwf+og=='
+```
+
 ### 5 `sylvanly-narrower-oxboy`
 
 `sylvanly-narrower-oxboy` is our feature branch and `sealed-updrink-kashyapa` is our master branch.
